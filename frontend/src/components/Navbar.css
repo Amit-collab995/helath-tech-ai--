@@ -1,0 +1,121 @@
+/* Navbar Main Container */
+.navbar {
+    /* background-color: #0A192F; */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .navbar-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Logo Styles */
+  .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 8px;
+  }
+  
+  .icon-logo {
+    color: #2563eb; /* Medical Blue */
+    width: 32px;
+    height: 32px;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #dce1e8;
+  }
+  .logo-text-span {
+    color: #2563eb;
+  }
+  
+  /* Desktop Navigation */
+  .nav-menu-desktop {
+    display: flex;
+    align-items: center;
+    
+    gap: 30px;
+  }
+  
+  .nav-link {
+    text-decoration: none;
+    color: #f3f4f6;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-link:hover {
+    color: #2563eb;
+  }
+  
+  .login-btn {
+    background-color: #2563eb;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+  
+  .login-btn:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .icon-bell {
+    color: #6b7280;
+    cursor: pointer;
+  }
+  
+  /* Mobile Toggle */
+  .mobile-menu-icon {
+    display: none;
+    cursor: pointer;
+  }
+  
+  /* Mobile Menu Items */
+  .nav-menu-mobile {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    border-top: 1px solid #f3f4f6;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+  }
+  
+  .mobile-login-btn {
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  
+  /* Responsive Media Queries */
+  @media (max-width: 768px) {
+    .nav-menu-desktop {
+      display: none;
+    }
+    .mobile-menu-icon {
+      display: block;
+    }
+  }
