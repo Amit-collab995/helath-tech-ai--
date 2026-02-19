@@ -1,0 +1,13 @@
+/* AnalysisResult.css */
+.analysis-result {
+  padding: 20px;
+  text-align: center;
+}
+
+.analysis-result h1 {
+  color: #333;
+}
+
+.analysis-result p {
+  color: #666;
+}

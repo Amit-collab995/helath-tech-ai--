@@ -1,223 +1,134 @@
 import React, { useState } from 'react';
 import './SymptomCheck.css';
 import { useNavigate } from 'react-router-dom';
+import { Activity, AlertCircle, ClipboardList, RefreshCw } from 'lucide-react';
 
 const SymptomChecker = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState(1); // 1: Input, 2: Analysis, 3: Medicine Suggestions, 4: Medicine Report
+  const [step, setStep] = useState(1); // 1: Input, 2: Final Result & Report
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
   const [input3, setInput3] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleInitialAnalysis = () => {
+  const handleAnalysis = () => {
     if (input1 && input2 && input3) {
-      setStep(2);
+      setLoading(true);
+      // Mock delay to feel like AI is working
+      setTimeout(() => {
+        setLoading(false);
+        setStep(2);
+      }, 1500);
     }
-  };
-
-  const handleMedicineAnalysis = () => {
-    setStep(3);
-  };
-
-  const handleMedicineReport = () => {
-    setStep(4);
   };
 
   const doctorNote = (
     <div className="doctor-note">
-      <p>⚠️ <strong>Important:</strong> Doctor se jarur salah lein. Ye sirf sujhav hai, professional medical advice ka substitute nahi hai.</p>
+      <p>⚠️ <strong>Important:</strong> Doctor se jarur salah lein. Ye sirf AI sujhav hai.</p>
     </div>
   );
 
   return (
     <div className="checker-container">
       <div className="checker-card">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          ← Back
+        <button className="back-button" onClick={() => (step === 2 ? setStep(1) : navigate(-1))}>
+          {step === 2 ? "← Re-edit Symptoms" : "← Back"}
         </button>
-        
-        {/* STEP 1: THREE INPUTS */}
+
+        {/* STEP 1: INPUT FORM */}
         {step === 1 && (
           <div className="fade-in">
-            <h2 className="step-title">How are you feeling?</h2>
-            <p className="step-sub">Please fill all the fields below.</p>
-            <form className='form-tag' onSubmit={(e) => { e.preventDefault(); handleInitialAnalysis(); }}>
+            <h2 className="step-title">AI Symptom Analysis</h2>
+            <p className="step-sub">Please describe your condition below.</p>
+            
+            <div className="form-tag">
+              <label>What are your symptoms?</label>
               <input 
                 className='input-tag' 
                 type="text" 
-                placeholder='Enter your symptoms' 
+                placeholder='e.g. Fever, Headache, Cough' 
                 value={input1}
                 onChange={(e) => setInput1(e.target.value)}
-                required
               />
+              
+              <label>Duration</label>
               <input 
                 className='input-tag' 
                 type="text" 
-                placeholder='How many days' 
+                placeholder='e.g. 3 Days' 
                 value={input2}
                 onChange={(e) => setInput2(e.target.value)}
-                required
               />
+
+              <label>Additional Details</label>
               <input 
                 className='input-tag' 
                 type="text" 
-                placeholder='Additional details (age, severity, etc.)' 
+                placeholder='e.g. Age 25, high severity' 
                 value={input3}
                 onChange={(e) => setInput3(e.target.value)}
-                required
               />
+
               <button 
-                type="submit"
+                onClick={handleAnalysis}
                 className="analyze-btn" 
-                disabled={!input1 || !input2 || !input3}
+                disabled={loading || !input1 || !input2 || !input3}
               >
-                ANALYZE SYMPTOMS
+                {loading ? "ANALYZING..." : "GET INSTANT ANALYSIS"}
               </button>
-            </form>
+            </div>
             {doctorNote}
           </div>
         )}
 
-        {/* STEP 2: ANALYSIS PAGE WITH ANALYZE BUTTON */}
+        {/* STEP 2: COMBINED RESULTS & REPORT */}
         {step === 2 && (
-          <div className="analysis-page fade-in">
-            <div className="loading-state">
-              <div className="ai-loader"></div>
-              <h3>AI is Analyzing Your Symptoms...</h3>
-              <p>Comparing your symptoms with our medical database.</p>
-              <div className="symptom-summary">
-                <h4>Your Input Summary:</h4>
-                <p><strong>Symptoms:</strong> {input1}</p>
-                <p><strong>Duration:</strong> {input2}</p>
-                <p><strong>Additional Info:</strong> {input3}</p>
-              </div>
-            </div>
-            <button className="analyze-btn" onClick={handleMedicineAnalysis} style={{ marginTop: '30px' }}>
-              GET MEDICINE SUGGESTIONS
-            </button>
-            {doctorNote}
-          </div>
-        )}
-
-        {/* STEP 3: MEDICINE SUGGESTIONS */}
-        {step === 3 && (
-          <div className="result-dashboard fade-in">
+          <div className="result-page fade-in">
             <div className="result-header">
-              <span className="risk-badge red">Analysis Complete</span>
-              <h2>Medicine Suggestions</h2>
-            </div>
-
-            <div className="medicine-list">
-              <div className="medicine-item">
-                <div className="medicine-info">
-                  <h4>Paracetamol 500mg</h4>
-                  <p>Dosage: 1 tablet every 6-8 hours</p>
-                  <p className="medicine-purpose">For fever and pain relief</p>
-                </div>
-              </div>
-              
-              <div className="medicine-item">
-                <div className="medicine-info">
-                  <h4>Ibuprofen 400mg</h4>
-                  <p>Dosage: 1 tablet every 8 hours</p>
-                  <p className="medicine-purpose">For inflammation and pain</p>
-                </div>
-              </div>
-
-              <div className="medicine-item">
-                <div className="medicine-info">
-                  <h4>Vitamin C Supplements</h4>
-                  <p>Dosage: As per doctor's advice</p>
-                  <p className="medicine-purpose">To boost immunity</p>
+              <div className="risk-indicator">
+                <Activity size={32} color="#ef4444" />
+                <div>
+                  <h3>Analysis Result</h3>
+                  <span className="risk-badge">Moderate Risk</span>
                 </div>
               </div>
             </div>
 
-            <div className="recommendation-box">
-              <h4>👨‍⚕️ General Recommendations:</h4>
-              <ul>
-                <li>Take medicines as prescribed</li>
-                <li>Stay hydrated - drink plenty of water</li>
-                <li>Get adequate rest</li>
-                <li>Monitor your symptoms</li>
-              </ul>
+            <div className="summary-section">
+              <h4>Patient Summary:</h4>
+              <p>Patient is experiencing <strong>{input1}</strong> for <strong>{input2}</strong>. {input3 && `Notes: ${input3}`}</p>
             </div>
 
-            <button className="medicine-report-btn" onClick={handleMedicineReport}>
-              VIEW DETAILED MEDICINE REPORT
-            </button>
+            <div className="report-grid">
+              {/* Medicine Section */}
+              <div className="report-card">
+                <h3><ClipboardList size={20} /> Suggested Medicines</h3>
+                <div className="med-box">
+                  <p><strong>Paracetamol 500mg:</strong> 1 tab every 6h (Fever)</p>
+                  <p><strong>Cetirizine:</strong> 1 tab at night (Allergy/Cough)</p>
+                  <p><strong>ORS Solution:</strong> Stay hydrated</p>
+                </div>
+              </div>
+
+              {/* Instructions Section */}
+              <div className="report-card">
+                <h3><AlertCircle size={20} /> Advice & Diet</h3>
+                <ul>
+                  <li>Take full bed rest for 2 days.</li>
+                  <li>Drink warm water and avoid cold drinks.</li>
+                  <li>Eat light food like Moong Dal Khichdi.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="action-footer">
+               <button className="reset-btn" onClick={() => {setStep(1); setInput1(''); setInput2(''); setInput3('');}}>
+                <RefreshCw size={18} /> New Checkup
+              </button>
+            </div>
             {doctorNote}
           </div>
         )}
-
-        {/* STEP 4: DETAILED MEDICINE REPORT */}
-        {step === 4 && (
-          <div className="medicine-report-page fade-in">
-            <div className="result-header">
-              <h2>Detailed Medicine Report</h2>
-            </div>
-
-            <div className="report-section">
-              <h3>Prescribed Medicines:</h3>
-              <div className="detailed-medicine-list">
-                <div className="detailed-medicine-item">
-                  <h4>1. Paracetamol 500mg</h4>
-                  <p><strong>Dosage:</strong> 1 tablet every 6-8 hours (Maximum 4 times a day)</p>
-                  <p><strong>Duration:</strong> 3-5 days or as needed</p>
-                  <p><strong>Purpose:</strong> Reduces fever and relieves pain</p>
-                  <p><strong>Side Effects:</strong> Rare, but may cause nausea in some cases</p>
-                  <p><strong>Precautions:</strong> Do not exceed recommended dosage</p>
-                </div>
-
-                <div className="detailed-medicine-item">
-                  <h4>2. Ibuprofen 400mg</h4>
-                  <p><strong>Dosage:</strong> 1 tablet every 8 hours (Maximum 3 times a day)</p>
-                  <p><strong>Duration:</strong> 3-5 days</p>
-                  <p><strong>Purpose:</strong> Anti-inflammatory and pain relief</p>
-                  <p><strong>Side Effects:</strong> May cause stomach upset, take with food</p>
-                  <p><strong>Precautions:</strong> Avoid if you have stomach ulcers or kidney problems</p>
-                </div>
-
-                <div className="detailed-medicine-item">
-                  <h4>3. Vitamin C Supplements</h4>
-                  <p><strong>Dosage:</strong> 500mg once daily</p>
-                  <p><strong>Duration:</strong> 7-10 days</p>
-                  <p><strong>Purpose:</strong> Boosts immune system</p>
-                  <p><strong>Side Effects:</strong> Generally safe, may cause mild stomach upset</p>
-                  <p><strong>Precautions:</strong> Take with meals</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="report-section">
-              <h3>General Instructions:</h3>
-              <ul className="instructions-list">
-                <li>Take all medicines at regular intervals</li>
-                <li>Do not skip doses</li>
-                <li>Complete the full course even if you feel better</li>
-                <li>Drink plenty of water throughout the day</li>
-                <li>Avoid alcohol while taking these medicines</li>
-                <li>If symptoms worsen, consult doctor immediately</li>
-              </ul>
-            </div>
-
-            <div className="report-section">
-              <h3>Diet Recommendations:</h3>
-              <ul className="instructions-list">
-                <li>Eat light, easily digestible food</li>
-                <li>Include fruits and vegetables in your diet</li>
-                <li>Avoid spicy and oily food</li>
-                <li>Stay hydrated with water, soups, and juices</li>
-              </ul>
-            </div>
-
-            <button className="reset-btn" onClick={() => {setStep(1); setInput1(''); setInput2(''); setInput3('');}}>
-              Start New Analysis
-            </button>
-            {doctorNote}
-          </div>
-        )}
-
       </div>
     </div>
   );

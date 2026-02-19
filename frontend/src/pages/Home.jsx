@@ -1,12 +1,12 @@
 import React from 'react';
 import './Home.css';
-import glassimage from '../assets/fun.jpg';
+
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
-import AISection from './AISection';
+
 import Footer from './Footer';
 import Card from './Card';
-// import {glassimage} from "./assets/fun.jpg"
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,12 +15,10 @@ const Home = () => {
     navigate("/check")
   }
 
-  const handleDectorDirectory = () => {
-    navigate("/dectordirectory")
-  }
+  
   return (
     <div className="home-wrapper">
-      {/* Abstract Background Shapes */}
+    
       <Navbar />
       
 
@@ -39,16 +37,7 @@ const Home = () => {
                 insights and medical guidance.
               </p>
 
-              <div className="feature-row">
-                <div className="feature-item">
-                  
-                  <p>🧠 Describe your symptoms naturally</p>
-                </div>
-                <div className="feature-item">
-                 
-                  <p>🔍Get instant AI-driven analysis</p>
-                </div>
-              </div>
+             
 
               <div className="cta-group">
                 <div className='button-cta'>
@@ -56,8 +45,8 @@ const Home = () => {
                   START SYMPTOM CHECK
                 </button>
 
-                <button onClick={handleDectorDirectory} className="main-cta-btn">
-                  Dector Directory
+                <button onClick={() => navigate("/imageanalysis")} className="main-cta-btn">
+                  Image Analysis Input
                 </button>
                 </div>
                 <span className="confidential-text">
@@ -69,12 +58,6 @@ const Home = () => {
             <div className="hero-visual-content">
               <div className="glass-card main-card">
                 <div className="scan-line"></div>
-                  {/* <img 
-                    src={glassimage} 
-                    alt="Human Body AI" 
-                    className="body-visual"
-                  /> */}
-
                <img 
                   src="https://png.pngtree.com/png-vector/20250124/ourmid/pngtree-innovative-medical-robot-ai-doctor-in-clinical-setting-image-png-image_15323571.png" 
                   alt="Human Body AI" 
@@ -88,8 +71,8 @@ const Home = () => {
         </div>
       </header>
       <Card />
-      <AISection />
-      <Footer />
+     
+      <Footer className="home-footer" />
     </div>
   );
 };

@@ -1,17 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import './AnalysisResult.css';
 
 const AnalysisResult = () => {
-  const navigate = useNavigate();
-
   return (
-    <div className="page analysis-result-page">
-      <button className="back-button" onClick={() => navigate(-1)}>
-        ← Back
-      </button>
-      <h1>Analysis Results</h1>
-      <p>Your AI-powered health analysis will appear here.</p>
-      {/* TODO: Show risk scores, recommendations, and next steps */}
+    <div className="analysis-result">
+      <h1>Analysis Result</h1>
+      <p>This is the analysis result page.</p>
     </div>
   );
 };

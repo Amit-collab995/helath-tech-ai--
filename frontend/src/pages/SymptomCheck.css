@@ -1,354 +1,189 @@
-.checker-container {
-    min-height: 100vh;
-    background: #0a192f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-  }
-  
-  .checker-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    width: 100%;
-    max-width: 600px;
-    padding: 40px;
-    text-align: center;
-  }
-  
-  .step-title { color: #fff; font-size: 2rem; margin-bottom: 10px; }
-  .step-sub { color: #8892b0; margin-bottom: 30px; }
-  
-  .symptom-input {
-    width: 100%;
-    height: 150px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #1e3a8a;
-    border-radius: 12px;
-    color: #fff;
-    padding: 20px;
-    font-size: 1.1rem;
-    resize: none;
-    margin-bottom: 20px;
-    outline: none;
-  }
-  
-  .analyze-btn {
-    /* background: linear-gradient(90deg, #00d2ff, #3a7bd5); */
-    background-color: #1D4ED8;
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
-  }
-  
-  /* Loading Animation */
-  .ai-loader {
-    width: 60px;
-    height: 60px;
-    border: 5px solid rgba(100, 255, 218, 0.1);
-    border-top: 5px solid #64ffda;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin { 100% { transform: rotate(360deg); } }
-  
-  /* Results Styling */
-  .result-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 15px;
-  }
-  
-  .risk-badge {
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    font-weight: bold;
-  }
-  
-  .red { background: rgba(255, 78, 78, 0.2); color: #ff4e4e; }
-  .yellow { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-  .green { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
-  
-  .disease-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .disease-info h4 { color: #fff; margin-bottom: 5px; }
-  .disease-info p { color: #8892b0; font-size: 0.85rem; }
-  
-  .recommendation-box {
-    background: rgba(100, 255, 218, 0.05);
-    border-left: 4px solid #64ffda;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: left;
-    margin: 25px 0;
-  }
-  
-  .recommendation-box h4 { color: #64ffda; margin-bottom: 5px; }
-  
-  .reset-btn {
-    background: transparent;
-    color: #8892b0;
-    border: 1px solid #8892b0;
-    padding: 10px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .form-tag{
-    width: 100%;
-    
-  }
-  .input-tag{
-    width: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #1e3a8a;
-    border-radius: 12px;
-    color: #fff;
-    padding: 20px;
-    font-size: 1.1rem;
-    resize: none;
-    margin-bottom: 20px;
-    outline: none;
-  }
-  
-  .fade-in {
-    animation: fadeIn 0.5s ease-in;
-  }
-  
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+:root {
+  --deep-navy: #0a192f;       /* Aapka preferred color */
+  --light-navy: #112240;      /* Secondary background */
+  --accent-blue: #3b82f6;     /* Action button blue */
+  --text-white: #e6f1ff;      /* Primary text */
+  --text-gray: #8892b0;       /* Secondary text */
+  --risk-red: #ff4d4d;
+}
 
-.back-button {
-  align-self: flex-start;
-  margin-bottom: 16px;
-  background: transparent;
-  border: none;
-  color: #64ffda;
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: inline-flex;
+/* Container & Background */
+.checker-container {
+  min-height: 100vh;
+  background-color: var(--deep-navy); /* Yahan Deep Navy use kiya hai */
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 6px;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Main Card */
+.checker-card {
+  background: var(--light-navy); /* Thoda sa light navy card ke liye */
+  width: 100%;
+  max-width: 650px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  padding: 40px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Back Button */
+.back-button {
+  background: none;
+  border: none;
+  color: var(--text-gray);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.back-button:hover {
+  color: var(--accent-blue);
+}
+
+/* Typography */
+.step-title {
+  font-size: 2rem;
+  color: var(--text-white);
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.step-sub {
+  color: var(--text-gray);
+  margin-bottom: 30px;
+}
+
+/* Form Styles */
+.form-tag {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-tag label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-white);
+  margin-bottom: -5px;
+}
+
+.input-tag {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.input-tag:focus {
+  border-color: var(--accent-blue);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Analyze Button */
+.analyze-btn {
+  margin-top: 10px;
+  padding: 16px;
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Result Page Styles */
+.result-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.risk-badge {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--risk-red);
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.summary-section {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border-left: 4px solid var(--accent-blue);
+  color: var(--text-white);
+}
+
+.report-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 20px;
+  color: var(--text-white);
+}
+
+.report-card h3 {
+  color: var(--accent-blue);
+  margin-bottom: 15px;
+}
+
+.med-box p {
+  color: var(--text-gray);
+  margin-bottom: 10px;
+}
+
+/* Reset Button */
+.reset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-white);
+  padding: 12px 25px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  font-weight: 600;
 }
 
 /* Doctor Note */
 .doctor-note {
-  background: rgba(255, 193, 7, 0.1);
-  border-left: 4px solid #ffc107;
-  padding: 15px;
-  border-radius: 8px;
   margin-top: 25px;
-  text-align: left;
-}
-
-.doctor-note p {
-  color: #ffc107;
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-/* Analysis Page */
-.analysis-page {
+  padding: 12px;
+  background: rgba(255, 187, 0, 0.1);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #ffcc00;
   text-align: center;
 }
 
-.symptom-summary {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 30px;
-  text-align: left;
+/* Fade-in Animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.symptom-summary h4 {
-  color: #64ffda;
-  margin-bottom: 15px;
-}
-
-.symptom-summary p {
-  color: #8892b0;
-  margin: 8px 0;
-  font-size: 0.95rem;
-}
-
-.symptom-summary strong {
-  color: #fff;
-}
-
-/* Medicine List */
-.medicine-list {
-  margin: 25px 0;
-}
-
-.medicine-item {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  text-align: left;
-  border-left: 4px solid #64ffda;
-}
-
-.medicine-info h4 {
-  color: #64ffda;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
-}
-
-.medicine-info p {
-  color: #8892b0;
-  margin: 5px 0;
-  font-size: 0.9rem;
-}
-
-.medicine-purpose {
-  color: #64ffda !important;
-  font-style: italic;
-  margin-top: 8px !important;
-}
-
-.medicine-report-btn {
-  background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-  color: white;
-  border: none;
-  padding: 15px 40px;
-  border-radius: 50px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
-  margin-top: 20px;
-  width: 100%;
-}
-
-.medicine-report-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 25px rgba(0, 210, 255, 0.3);
-}
-
-/* Medicine Report Page */
-.medicine-report-page {
-  text-align: left;
-}
-
-.report-section {
-  margin: 30px 0;
-}
-
-.report-section h3 {
-  color: #64ffda;
-  margin-bottom: 20px;
-  font-size: 1.3rem;
-}
-
-.detailed-medicine-list {
-  margin: 20px 0;
-}
-
-.detailed-medicine-item {
-  background: rgba(255, 255, 255, 0.03);
-  padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  border-left: 4px solid #1D4ED8;
-}
-
-.detailed-medicine-item h4 {
-  color: #64ffda;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-}
-
-.detailed-medicine-item p {
-  color: #8892b0;
-  margin: 8px 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.detailed-medicine-item strong {
-  color: #fff;
-}
-
-.instructions-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.instructions-list li {
-  color: #8892b0;
-  padding: 10px 0;
-  padding-left: 25px;
-  position: relative;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.instructions-list li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: #64ffda;
-  font-weight: bold;
-}
-
-.recommendation-box ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
-}
-
-.recommendation-box ul li {
-  color: #8892b0;
-  padding: 8px 0;
-  padding-left: 25px;
-  position: relative;
-  font-size: 0.9rem;
-}
-
-.recommendation-box ul li::before {
-  content: "•";
-  position: absolute;
-  left: 10px;
-  color: #64ffda;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.analyze-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.analyze-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 15px 25px rgba(0, 210, 255, 0.3);
-}
-
-.reset-btn:hover {
-  background: rgba(136, 146, 176, 0.1);
-  border-color: #64ffda;
-  color: #64ffda;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
